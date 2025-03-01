@@ -185,6 +185,7 @@ use reth_storage_api::StateProviderFactory;
 use std::{collections::HashSet, sync::Arc};
 use tokio::sync::mpsc::Receiver;
 use tracing::{instrument, trace};
+use tracing::log::info;
 
 pub mod error;
 pub mod maintain;
@@ -362,7 +363,8 @@ where
         origin: TransactionOrigin,
         transaction: Self::Transaction,
     ) -> PoolResult<TxHash> {
-        let (_, tx) = self.validate(origin, transaction).await;
+        let (hash, tx) = self.validate(origin, transaction).await;
+        info!("Validation result for tx {}: {:?}", hash, tx);
         let mut results = self.pool.add_transactions(origin, std::iter::once(tx));
         results.pop().expect("result length is the same as the input")
     }
@@ -376,6 +378,7 @@ where
             return Vec::new()
         }
         let validated = self.validate_all(origin, transactions).await;
+        info!("Validated {:?}", validated);
 
         self.pool.add_transactions(origin, validated.into_iter().map(|(_, tx)| tx))
     }

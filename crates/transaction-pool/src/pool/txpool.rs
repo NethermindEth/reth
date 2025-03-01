@@ -726,7 +726,7 @@ impl<T: TransactionOrdering> TxPool<T> {
                 Destination::Discard => {
                     // remove the transaction from the pool and subpool
                     if let Some(tx) = self.prune_transaction_by_hash(&hash) {
-                        tracing::info!("Discarding transaction {:?}", tx);
+                        tracing::info!("Discarding a transaction {:?}", tx);
                         outcome.discarded.push(tx);
                     }
                     self.metrics.removed_transactions.increment(1);

@@ -366,6 +366,7 @@ where
         let (hash, tx) = self.validate(origin, transaction).await;
         info!("Validation result for tx {}: {:?}", hash, tx);
         let mut results = self.pool.add_transactions(origin, std::iter::once(tx));
+        info!("Results for add pool transaction: {:?}", results);
         results.pop().expect("result length is the same as the input")
     }
 

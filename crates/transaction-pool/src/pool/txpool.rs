@@ -530,6 +530,7 @@ impl<T: TransactionOrdering> TxPool<T> {
         // Remove all transaction that were included in the block
         let mut removed_txs_count = 0;
         for tx_hash in &mined_transactions {
+            tracing::info!("Removing mined transaction {}", tx_hash);
             if self.prune_transaction_by_hash(tx_hash).is_some() {
                 removed_txs_count += 1;
             }
@@ -725,6 +726,7 @@ impl<T: TransactionOrdering> TxPool<T> {
                 Destination::Discard => {
                     // remove the transaction from the pool and subpool
                     if let Some(tx) = self.prune_transaction_by_hash(&hash) {
+                        tracing::info!("Discarding transaction {:?}", tx);
                         outcome.discarded.push(tx);
                     }
                     self.metrics.removed_transactions.increment(1);

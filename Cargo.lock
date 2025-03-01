@@ -8676,7 +8676,6 @@ dependencies = [
  "alloy-rpc-types-eth",
  "c-kzg",
  "derive_more",
- "log",
  "op-alloy-consensus",
  "op-alloy-flz",
  "parking_lot",

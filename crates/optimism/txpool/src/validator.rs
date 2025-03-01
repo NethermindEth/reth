@@ -17,7 +17,6 @@ use std::sync::{
     atomic::{AtomicU64, Ordering},
     Arc,
 };
-use log::info;
 
 /// Tracks additional infos for the current block.
 #[derive(Debug, Default)]
@@ -229,7 +228,7 @@ where
         transaction: Self::Transaction,
     ) -> TransactionValidationOutcome<Self::Transaction> {
         let res = self.validate_one(origin, transaction);
-        info!("Transaction validation outcome: {:?}", res);
+        println!("Transaction validation outcome: {:?}", res);
         res
     }
 
@@ -238,7 +237,7 @@ where
         transactions: Vec<(TransactionOrigin, Self::Transaction)>,
     ) -> Vec<TransactionValidationOutcome<Self::Transaction>> {
         let res = self.validate_all(transactions);
-        info!("Transaction validation outcome: {:?}", res);
+        println!("Transaction validation outcome: {:?}", res);
         res
     }
 

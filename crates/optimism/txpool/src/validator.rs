@@ -96,7 +96,7 @@ where
                 this.block_info.timestamp.store(block.header().timestamp(), Ordering::Relaxed);
                 this.block_info.number.store(block.header().number(), Ordering::Relaxed);
             } else {
-                this.update_l1_block_info(block.header(), block.body().transactions().next());
+                this.update_l1_block_info(block.header(), block.body().transactions().first());
             }
         }
 

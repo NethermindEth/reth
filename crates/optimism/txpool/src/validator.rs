@@ -17,6 +17,7 @@ use std::sync::{
     atomic::{AtomicU64, Ordering},
     Arc,
 };
+use log::info;
 
 /// Tracks additional infos for the current block.
 #[derive(Debug, Default)]
@@ -96,7 +97,7 @@ where
                 this.block_info.timestamp.store(block.header().timestamp(), Ordering::Relaxed);
                 this.block_info.number.store(block.header().number(), Ordering::Relaxed);
             } else {
-                this.update_l1_block_info(block.header(), block.body().transactions().first());
+                this.update_l1_block_info(block.header(), block.body().transactions().next());
             }
         }
 
@@ -227,14 +228,18 @@ where
         origin: TransactionOrigin,
         transaction: Self::Transaction,
     ) -> TransactionValidationOutcome<Self::Transaction> {
-        self.validate_one(origin, transaction)
+        let res = self.validate_one(origin, transaction);
+        info!("Transaction validation outcome: {:?}", res);
+        res
     }
 
     async fn validate_transactions(
         &self,
         transactions: Vec<(TransactionOrigin, Self::Transaction)>,
     ) -> Vec<TransactionValidationOutcome<Self::Transaction>> {
-        self.validate_all(transactions)
+        let res = self.validate_all(transactions);
+        info!("Transaction validation outcome: {:?}", res);
+        res
     }
 
     fn on_new_head_block<B>(&self, new_tip_block: &SealedBlock<B>)

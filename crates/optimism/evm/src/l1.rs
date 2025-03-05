@@ -28,6 +28,10 @@ const L1_BLOCK_ECOTONE_SELECTOR: [u8; 4] = hex!("440a5e20");
 /// The function selector of the "setL1BlockValuesIsthmus" function in the `L1Block` contract.
 const L1_BLOCK_ISTHMUS_SELECTOR: [u8; 4] = hex!("098999be");
 
+/// The function selector of the "setL1BlockValuesInterop" function in the `L1Block` contract.
+
+const L1_BLOCK_INTEROP_SELECTOR: [u8; 4] = hex!("760ee04d");
+
 /// Extracts the [`L1BlockInfo`] from the L2 block. The L1 info transaction is always the first
 /// transaction in the L2 block.
 ///
@@ -68,7 +72,9 @@ pub fn parse_l1_info(input: &[u8]) -> Result<L1BlockInfo, OpBlockExecutionError>
     // If the first 4 bytes of the calldata are the L1BlockInfoEcotone selector, then we parse the
     // calldata as an Ecotone hardfork L1BlockInfo transaction. Otherwise, we parse it as a
     // Bedrock hardfork L1BlockInfo transaction.
-    if input[0..4] == L1_BLOCK_ISTHMUS_SELECTOR {
+    if input[0..4] == L1_BLOCK_INTEROP_SELECTOR {
+        parse_l1_info_tx_ecotone(input[4..].as_ref())
+    } else if input[0..4] == L1_BLOCK_ISTHMUS_SELECTOR {
         parse_l1_info_tx_isthmus(input[4..].as_ref())
     } else if input[0..4] == L1_BLOCK_ECOTONE_SELECTOR {
         parse_l1_info_tx_ecotone(input[4..].as_ref())

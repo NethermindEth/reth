@@ -22,6 +22,9 @@ fn main() {
     let flags = format!("{:?}", cc.get_compiler().cflags_env());
     cc.define("MDBX_BUILD_FLAGS", flags.as_str()).define("MDBX_TXN_CHECKOWNER", "0");
 
+    // Add valgrind
+    cc.define("MDBX_USE_VALGRIND", "1");
+    
     // Enable debugging on debug builds
     #[cfg(debug_assertions)]
     cc.define("MDBX_DEBUG", "1").define("MDBX_ENABLE_PROFGC", "1");

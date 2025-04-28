@@ -37,7 +37,7 @@ use std::{
     ops::Bound::{Excluded, Unbounded},
     sync::Arc,
 };
-use tracing::trace;
+use tracing::{trace, error};
 
 #[cfg_attr(doc, aquamarine::aquamarine)]
 // TODO: Inlined diagram due to a bug in aquamarine library, should become an include when it's
@@ -832,6 +832,7 @@ impl<T: TransactionOrdering> TxPool<T> {
 
         // After a tx is removed, its descendants must become parked due to the nonce gap
         let updates = self.all_transactions.park_descendant_transactions(tx.id());
+        error!("Updates: {:?}");
         self.process_updates(updates);
         self.remove_from_subpool(pool, tx.id())
     }

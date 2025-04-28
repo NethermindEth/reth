@@ -832,7 +832,7 @@ impl<T: TransactionOrdering> TxPool<T> {
 
         // After a tx is removed, its descendants must become parked due to the nonce gap
         let updates = self.all_transactions.park_descendant_transactions(tx.id());
-        error!("Updates: {:?}");
+        error!("Updates: {:?}", updates);
         self.process_updates(updates);
         self.remove_from_subpool(pool, tx.id())
     }

@@ -542,7 +542,14 @@ impl<T: TransactionOrdering> TxPool<T> {
         self.metrics.removed_transactions.increment(removed_txs_count);
 
         let UpdateOutcome { promoted, discarded } = self.update_accounts(changed_senders);
-
+        
+        println!("----------");
+        println!("Mined txs: {:?}", mined_transactions);
+        println!("----------");
+        println!("On txpool update");
+        println!("Promoted: {:?}", promoted);
+        println!("Discarded: {:?}", discarded);
+        println!("----------");
         self.update_transaction_type_metrics();
         self.metrics.performed_state_updates.increment(1);
 

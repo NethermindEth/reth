@@ -444,7 +444,7 @@ revm-inspectors = "0.15"
 
 # eth
 alloy-chains = { version = "0.1.32", default-features = false }
-alloy-dyn-abi = "0.8.20"
+alloy-dyn-abi = "0.8.26"
 alloy-eip2124 = { version = "0.1.0", default-features = false }
 alloy-evm = { version = "0.1", default-features = false }
 alloy-primitives = { version = "0.8.20", default-features = false, features = ["map-foldhash"] }
@@ -498,7 +498,7 @@ bincode = "1.3"
 bitflags = "2.4"
 blake3 = "1.5.5"
 boyer-moore-magiclen = "0.2.16"
-bytes = { version = "1.5", default-features = false }
+bytes = { version = "1.11", default-features = false }
 cfg-if = "1.0"
 clap = "4"
 dashmap = "6.0"
@@ -550,7 +550,7 @@ proc-macro2 = "1.0"
 quote = "1.0"
 
 # tokio
-tokio = { version = "1.39", default-features = false }
+tokio = { version = "1.43", default-features = false }
 tokio-stream = "0.1.11"
 tokio-util = { version = "0.7.4", features = ["codec"] }
 
@@ -583,7 +583,7 @@ jsonrpsee-types = "0.24"
 http = "1.0"
 http-body = "1.0"
 http-body-util = "0.1.2"
-jsonwebtoken = "9"
+jsonwebtoken = "10"
 proptest-arbitrary-interop = "0.1.0"
 
 # crypto
